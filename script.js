@@ -72,6 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Kuch Baatein audio
     const baateinAudio = document.getElementById('baatein-audio');
 
+    // Memories Secret audio
+    const secretAudio = document.getElementById('secret-audio');
+
+    // Cake Ceremony audio
+    const cakeAudio = document.getElementById('cake-audio');
+
     // Global navigation tracking
     let wasSynthPlayingBeforeSubpage = false;
 
@@ -684,7 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const passcodeInput = document.getElementById('passcode-input');
     const unlockBtn = document.getElementById('unlock-btn');
     const lockErrorMsg = document.getElementById('lock-error-msg');
-    const secretAudio = document.getElementById('secret-audio');
 
     const CORRECT_PASSCODE = 'KSP277038AC2YRSINLV18BDY';
     let wasSynthPlayingBeforeSecret = false;
@@ -790,7 +795,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
 
     const cakeSubpage      = document.getElementById('cake-subpage');
-    const cakeAudio        = document.getElementById('cake-audio');
     const cakePopup        = document.getElementById('cake-popup');
     const popupTitle       = document.getElementById('popup-title');
     const popupDesc        = document.getElementById('popup-desc');
