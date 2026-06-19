@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <!-- Google Fonts: Poppins (Regular, SemiBold), Playfair Display (Serif), Great Vibes (Romantic Cursive) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-container">
+        <div class="loader-content">
+            <div class="heart-pulse-wrapper">
+                <svg class="loader-heart" viewBox="0 0 32 29.6">
+                    <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+                    c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+                <div class="heart-pulse-glow"></div>
+            </div>
+            <p class="loader-text">Creating a space of love...</p>
+        </div>
+    </div>
+
+    <!-- Canvas for Particles and Sparkles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Background Decoration (Soft glowing shapes) -->
+    <div class="bg-glow-orb orb-1"></div>
+    <div class="bg-glow-orb orb-2"></div>
+    <div class="bg-glow-orb orb-3"></div>
+
+    <!-- Background Music Controller -->
+    <button id="music-btn" class="music-toggle-btn" aria-label="Toggle Music">
+        <svg class="music-icon icon-off" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+            <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" />
+        </svg>
+        <svg class="music-icon icon-on hidden" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+        </svg>
+    </button>
+
+    <!-- Wishes Special Audio -->
+    <audio id="wishes-audio" src="Arzkiyahaiwebaudio.mpeg" preload="auto"></audio>
+    
+    <!-- Memories Secret Audio -->
+    <audio id="secret-audio" src="memoriessecretpagewebaudio.mpeg" preload="auto"></audio>
+    
+    <!-- Birthday Ceremony Audio -->
+    <audio id="cake-audio" src="hbdsoundaudio.mpeg" preload="auto"></audio>
+
+    <!-- Kuch Baatein Audio -->
+    <audio id="baatein-audio" src="CO2songaudio.mpeg" preload="auto"></audio>
+
+    <!-- Main Container -->
+    <main class="app-container">
+
+        <!-- 1. LANDING PAGE (Hero Section) -->
+        <section id="landing-page" class="view-section active">
+            <div class="glass-card hero-card">
+                <div class="hero-header-decoration">
+                    <span class="decor-sparkle">✨</span>
+                    <span class="decor-heart">🌸</span>
+                    <span class="decor-sparkle">✨</span>
+                </div>
+                
+                <h3 class="romantic-subtitle">For the one who holds my heart...</h3>
+                <h1 class="birthday-title">Happy Birthday, <br><span class="highlight">My Love</span></h1>
+                
+                <p class="hero-tagline">
+                    I created this website for your birthday, if you present with me this day, it would have been celebrated not only with wishes but also with lots of gifts, kisses, hugs and some time spent together.
+                    <br><br>
+                    <span class="headphone-tip">🎧 Make sure you wear a headphone/earphone just before clicking the below button</span>
+                </p>
+
+                <div class="cta-wrapper">
+                    <button id="enter-heart-btn" class="btn-enter-heart">
+                        <span class="btn-glow"></span>
+                        <span class="btn-text">Enter My Heart ❤️</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DASHBOARD PAGE -->
+        <section id="dashboard-page" class="view-section hidden">
+            <div class="dashboard-header">
+                <h2 class="romantic-greeting">Welcome to My Heart, Beautiful</h2>
+                <p class="dashboard-subtitle">Explore the little corners of my love for you</p>
+            </div>
+
+            <!-- Card Grid Navigation -->
+            <div class="dashboard-grid">
+                
+                <!-- Card 1: Birthday Wishes -->
+                <div class="dashboard-card" data-target="wishes-subpage">
+                    <div class="card-glow-bg bg-gradient-1"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <svg class="card-svg-icon wishes-icon" viewBox="0 0 64 64">
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M32 20v28M18 28h28M32 10a4 4 0 0 1 4 4c0 4-4 8-4 8s-4-4-4-8a4 4 0 0 1 4-4zM16 32h32a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V34a2 2 0 0 1 2-2z"/>
+                                <circle cx="32" cy="14" r="1" fill="currentColor"/>
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" d="M22 32V24c0-2.2 1.8-4 4-4h12c2.2 0 4 1.8 4 4v8"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Birthday Wishes 🎂</h3>
+                        <p class="card-desc">Warm, heartfelt wishes wrapped in love.</p>
+                        <div class="card-arrow">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Kuch Baatein -->
+                <div class="dashboard-card" data-target="baatein-subpage">
+                    <div class="card-glow-bg bg-gradient-2"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <svg class="card-svg-icon baatein-icon" viewBox="0 0 64 64">
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M8 12h48v36H8zM8 12l24 18 24-18M26 36h12M22 42h20"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Kuch Baatein 💌</h3>
+                        <p class="card-desc">Letters, thoughts, and memories we share.</p>
+                        <div class="card-arrow">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Arguments & All -->
+                <div class="dashboard-card" data-target="arguments-subpage">
+                    <div class="card-glow-bg bg-gradient-3"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <svg class="card-svg-icon arguments-icon" viewBox="0 0 64 64">
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M32 8c-6 0-11 5-11 11 0 10 11 19 11 19s11-9 11-19c0-6-5-11-11-11z"/>
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M24 19c2 0 4 2 5 4M32 44v10M26 50h12"/>
+                                <path fill="none" stroke="currentColor" stroke-width="2" d="M31 16l-3 4h6l-3 4"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Arguments & All 🥺</h3>
+                        <p class="card-desc">Because every little fight brings us closer.</p>
+                        <div class="card-arrow">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Some memories -->
+                <div class="dashboard-card" data-target="memories-subpage">
+                    <div class="card-glow-bg bg-gradient-4"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <svg class="card-svg-icon memories-icon" viewBox="0 0 64 64">
+                                <rect x="16" y="24" width="32" height="26" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 24v-6c0-4.4 3.6-8 8-8s8 3.6 8 8v6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="32" cy="37" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Some memories 🔒</h3>
+                        <p class="card-desc">Locked with love. Enter the secret code to open.</p>
+                        <div class="card-arrow">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Cake Cutting Ceremony -->
+                <div class="dashboard-card" data-target="cake-subpage">
+                    <div class="card-glow-bg bg-gradient-3"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <svg class="card-svg-icon cake-icon" viewBox="0 0 64 64">
+                                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M12 48h40v6H12zM16 28h32v20H16zM20 14h24v14H20zM32 6v8M28 8h8"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Cake Cutting Ceremony 🎂</h3>
+                        <p class="card-desc">Light the candles, blow them, and cut a sweet slice.</p>
+                        <div class="card-arrow">
+                            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Subpage Overlays (Completely blank inside, showing only title/header as required) -->
+
+    <!-- Subpage 1: Birthday Wishes -->
+    <div id="wishes-subpage" class="subpage-overlay hidden">
+        <div class="subpage-container glass-card">
+            <button class="back-btn" aria-label="Go Back">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Back</span>
+            </button>
+            <div class="subpage-header">
+                <div class="subpage-badge">Section 1</div>
+                <h1 class="subpage-title">Birthday Wishes 🎂</h1>
+                <div class="title-separator"></div>
+            </div>
+            <!-- Subpage content is populated with Shristy's bold letter -->
+            <div class="subpage-content wishes-letter">
+                <p class="letter-highlight">Happy 18th Birthday, My Dearest Shristy Betu ❤️🎂🎉</p>
+                <p>Today is such a special and saandar day because the most adorable😋, cutest ☺️🦛girl in my life is finally turning 18! 🥳✨ Happy Birthday, my love. ❤️</p>
+                <p>I wish I could be there with u in person to celebrate this special day, but for now, these words will have to carry all the love, hugs, and wishes that I want to give u today. 🫂💖</p>
+                <p>It feels like just yesterday when we fell in love in 2024. I never imagined that one kaleshi🦛🕷️❤️, khadoos person could become so important to me in such a short time. But here we are, celebrating ur second birthday together, and I honestly feel so lucky to have u in my zindagi. 🥹❤️</p>
+                <p>Even though u're in Patna right now and I'm in Mahagama, with around 300 km between us 💔, u are always with me—in my thoughts, in my heart, and in every part of my day. Every day, every second, and every little thing somehow reminds me of u. Long distance isn't easy, and there are moments when I wish I could simply meet u whenever I miss u. But despite the distance, I know we're both trying our best, and I truly hope we'll soon be together in Ranchi🥺 during ur drop year. 🤝❤️</p>
+                <p class="letter-question">Do u know what I love the most about u?</p>
+                <p>It's not just ur beautiful smile, ur cute daant wala photos, or the way u make me laugh until my stomach hurts. 😂 It's ur golden heart. 💛❤️🦛</p>
+                <p>U are one of the kindest, sweetest, most caring people I have ever met. And at the same time, u are jhagdalu, kaleshi, full of dadagiri👉👈🙏😢, stubborn, and impossible to handle sometimes. 😤😂 But honestly, that's exactly what makes u... u. And I wouldn't want u any other way. ❤️🦛🕷️😭</p>
+                <p>Of course, our relationship isn't perfect. 😂 We fight, we argue, we get stubborn, and sometimes we don't agree on even the smallest things. 🙈 There are days when we annoy each other so much that it feels impossible to stop fighting.</p>
+                <p>But no matter how many arguments we have, one thing never changes—my love for u. ❤️🦄</p>
+                <p>Every fight teaches me how much u matter to me. Every misunderstanding reminds me how badly I never want to lose u. At the end of every bad day😢, every argument, and every disagreement😢✋, u are still the person I want to talk to, laugh with, and share my life with. 🥹💕</p>
+                <p>U are my comfort when things get difficult, my happiness when days feel boring, and one of the best things that has ever happened to me.</p>
+                <p>And now, my love, u are turning 18. 🌸✨</p>
+                <p>A whole new chapter of ur life is beginning today🦄. I hope this year brings u endless happiness, success, confidence, peace, good health, and countless beautiful memories. ❤️</p>
+                <p>I hope this year marks the end 💥of the vitiligo era and all those faltu stomach problems that keep bothering u. 🤭💖 I pray that u become stronger, happier, and more confident than ever before.</p>
+                <p>May all ur dreams come true because, honestly, u deserve nothing less than the very best that life has to offer. 🌟✨</p>
+                <p>Thank u for loving me, understanding me, tolerating my stupidity, fighting with me, caring for me, and staying by my side through all the ups and downs. ❤️</p>
+                <p>Thank u for making my life brighter, happier, and more meaningful every single day.</p>
+                <p>No matter how far apart we are, no matter how many fights we have, and no matter what challenges come our way, I want u to always remember one thing:</p>
+                <p class="letter-highlight-mid">I love u more than words can ever explain. ❤️🫶</p>
+                <p>Distance may separate us physically, but it can never reduce what I feel for u. Every day that passes only makes me more certain that having u in my life is one of the greatest blessings I could ever ask for. 🥹❤️</p>
+                <p>So today, smile a little extra, laugh a little louder, eat lots of cake, take lots of photos, and enjoy every single moment because today is all about u, my love. 🎂🎉🥳</p>
+                <p class="letter-highlight">Happy 18th Birthday, Shristy! ❤️🌹✨</p>
+                <p>May this year be filled with happiness, success, love, good health, and everything ur heart desires.</p>
+                <div class="letter-signature">
+                    <p class="sig-title">Forever yours,</p>
+                    <p class="sig-heart">The Men From Ur Heart ❤️</p>
+                    <p class="sig-name">Krish Aryan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subpage 2: Kuch Baatein -->
+    <div id="baatein-subpage" class="subpage-overlay hidden">
+        <div class="subpage-container glass-card">
+            <button class="back-btn" aria-label="Go Back">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Back</span>
+            </button>
+            <div class="subpage-header">
+                <div class="subpage-badge">Section 2</div>
+                <h1 class="subpage-title">Kuch Baatein 💌</h1>
+                <div class="title-separator"></div>
+            </div>
+            <div class="subpage-content wishes-letter">
+                <p class="letter-highlight">Yr baby... 💔</p>
+                <p>Galat time me ladai jhagda and all ho gaya. Agar pata rehta to aaj ya toh jhagda nahi karte ya fir baat nahi karte — ya fir ye dono ka baat kuch din pehele likh ke rakhte. 🥺</p>
+                <p>Hum aaj soch ke rakhe the ki likhenge, but ladai me sab barbaad ho gaya. 😔</p>
+                <p>Khair, tum ho na mere saath — toh kuch baatein bolne ki kaisa zarurat. Bas hum chahte tum mere saath raho hamesha, chahe jaisa bhi raho. ❤️</p>
+                <p>I don't want to share you with anyone — that's why I'm super possessive. So try to understand my feelings, Bubu. 🦛💕 You are the only person I share my every single thing and secret with.</p>
+                <p>Please try to understand me. I don't want to fight with you, but the situation I can't explain. I always used to fight with you over small things because I love you, baccha. 😭❤️</p>
+                <p>I don't want to hurt you, Bubu. 🥺</p>
+                <p class="letter-question">Please, iss baar mere paas aana na...</p>
+                <p>Abhi ye bolte hue ki tumhe bhi fark padhta, tumko bhi kharab lagta — thoda pyaara karna na Bubu. 🫂</p>
+                <p>Toote hue hai, jod do na — bikharne se pehele aao na. Ye bolte hue mere paas aao na...</p>
+                <p class="letter-highlight-mid">Please jod do na mujhe. ❤️🥹</p>
+                <div class="letter-signature">
+                    <p class="sig-title">Tumhara hi,</p>
+                    <p class="sig-heart">Jo toot ke bhi tumhara is ❤️</p>
+                    <p class="sig-name">Krish Aryan</p>
+                </div>
+            </div>
+            <!-- Return to Dashboard Button -->
+            <div class="return-btn-wrapper">
+                <button class="btn-return-dashboard" data-subpage="baatein-subpage">Return to Dashboard 🏠</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subpage 3: Arguments & All -->
+    <div id="arguments-subpage" class="subpage-overlay hidden">
+        <div class="subpage-container glass-card">
+            <button class="back-btn" aria-label="Go Back">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Back</span>
+            </button>
+            <div class="subpage-header">
+                <div class="subpage-badge">Section 3</div>
+                <h1 class="subpage-title">Arguments & All 🥺</h1>
+                <div class="title-separator"></div>
+            </div>
+            <div class="subpage-content arguments-content">
+                <div class="arguments-placeholder">
+                    <div class="arg-icon">🥺💬</div>
+                    <p class="arg-main-text">Fir wahi samay ka shortage...</p>
+                    <p class="arg-sub-text">Iss liye nahi likh paaya hu. 😔</p>
+                    <p class="arg-note">Lekin tum jaante ho na ki jo bhi hua, mere dil me sirf tum ho. ❤️</p>
+                </div>
+            </div>
+            <!-- Return to Dashboard Button -->
+            <div class="return-btn-wrapper">
+                <button class="btn-return-dashboard" data-subpage="arguments-subpage">Return to Dashboard 🏠</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subpage 4: Some memories (Locked Passcode Required) -->
+    <div id="memories-subpage" class="subpage-overlay hidden">
+        <div class="subpage-container glass-card">
+            <button class="back-btn" aria-label="Go Back">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Back</span>
+            </button>
+            
+            <!-- Lock Screen Section -->
+            <div id="memories-lock-screen" class="lock-screen-container">
+                <div class="lock-icon-wrapper">
+                    <svg class="lock-svg" viewBox="0 0 24 24" width="60" height="60">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h2 class="lock-title">Some Memories 🔒</h2>
+                <p class="lock-subtitle">This space is locked. Enter the secret code to unlock our special moments.</p>
+                
+                <div class="lock-input-group">
+                    <input type="password" id="passcode-input" placeholder="Enter passcode..." autocomplete="off">
+                    <button id="unlock-btn">Unlock ❤️</button>
+                </div>
+                <p id="lock-error-msg" class="lock-error-text hidden">Oops, that's not our key! 🥺 Try again, my love.</p>
+            </div>
+
+            <!-- Unlocked Content Section (Hidden by default) -->
+            <div id="memories-content" class="unlocked-content-container hidden">
+                <div class="subpage-header">
+                    <div class="subpage-badge">Secret Album</div>
+                    <h1 class="subpage-title">Some Memories 🔒💖</h1>
+                    <div class="title-separator"></div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="memories-tabs">
+                    <button class="tab-btn active" data-tab="pdf1-tab">Book of Us 📖</button>
+                    <button class="tab-btn" data-tab="pdf2-tab">Birthday Moments 📸</button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="tab-content-container">
+                    <div id="pdf1-tab" class="tab-panel active">
+                        <iframe src="BdyStypdf.pdf" class="pdf-viewer-frame"></iframe>
+                    </div>
+                    <div id="pdf2-tab" class="tab-panel hidden">
+                        <iframe src="sdbdypdfimg.pdf" class="pdf-viewer-frame"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subpage 5: Cake Cutting Ceremony -->
+    <div id="cake-subpage" class="subpage-overlay hidden">
+        <div class="subpage-container glass-card">
+            <button class="back-btn" aria-label="Go Back">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Back</span>
+            </button>
+
+            <div class="subpage-header">
+                <div class="subpage-badge">Ceremony</div>
+                <h1 class="subpage-title">Cake Cutting Ceremony 🎂</h1>
+                <div class="title-separator"></div>
+            </div>
+
+            <div class="cake-ceremony-wrapper">
+                
+                <!-- The 3-Tier CSS Cake + Knife Below (shown first / at top) -->
+                <div class="cake-display-area">
+                    <div class="cake-table">
+                        <div class="cake-stand"></div>
+                        <div class="cake-plate"></div>
+                        
+                        <!-- 3 Tier Cake -->
+                        <div class="cake-body" id="birthday-cake">
+                            
+                            <!-- Candles on Top Tier -->
+                            <div class="candles-container">
+                                <div class="candle" id="candle-1" style="left: 15%;">
+                                    <div class="candle-wick"></div>
+                                    <div class="candle-flame lit"></div>
+                                    <div class="candle-smoke"></div>
+                                </div>
+                                <div class="candle" id="candle-2" style="left: 32%;">
+                                    <div class="candle-wick"></div>
+                                    <div class="candle-flame lit"></div>
+                                    <div class="candle-smoke"></div>
+                                </div>
+                                <div class="candle" id="candle-3" style="left: 50%;">
+                                    <div class="candle-wick"></div>
+                                    <div class="candle-flame lit"></div>
+                                    <div class="candle-smoke"></div>
+                                </div>
+                                <div class="candle" id="candle-4" style="left: 68%;">
+                                    <div class="candle-wick"></div>
+                                    <div class="candle-flame lit"></div>
+                                    <div class="candle-smoke"></div>
+                                </div>
+                                <div class="candle" id="candle-5" style="left: 85%;">
+                                    <div class="candle-wick"></div>
+                                    <div class="candle-flame lit"></div>
+                                    <div class="candle-smoke"></div>
+                                </div>
+                            </div>
+
+                            <!-- Tier 1: Red (Top) -->
+                            <div class="cake-tier tier-top red-tier">
+                                <div class="dripping-frosting"></div>
+                                <div class="tier-inner"></div>
+                            </div>
+                            
+                            <!-- Tier 2: Golden (Middle) -->
+                            <div class="cake-tier tier-middle gold-tier">
+                                <div class="dripping-frosting"></div>
+                                <div class="tier-inner"></div>
+                            </div>
+                            
+                            <!-- Tier 3: Pink (Bottom) -->
+                            <div class="cake-tier tier-bottom pink-tier">
+                                <div class="dripping-frosting"></div>
+                                <div class="tier-inner"></div>
+                            </div>
+                            
+                            <!-- Cut Slice Line Indicator -->
+                            <div class="cake-cut-line" id="cake-cut-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- Knife button sits directly below the cake -->
+                    <div id="cake-knife-container" class="knife-container hidden">
+                        <button id="grab-knife-btn" class="btn-action-round">
+                            <span>Grab the Knife 🔪</span>
+                        </button>
+                        <p class="ceremony-hint">Grab the knife, then click the cake to cut it!</p>
+                    </div>
+                </div>
+
+                <!-- Webcam View (shown only during blow detection) -->
+                <div id="selfie-cam-container" class="selfie-cam-box hidden">
+                    <video id="cake-webcam" autoplay playsinline muted></video>
+                    <div class="cam-label">Selfie Cam 📸</div>
+                    <div class="blow-indicator">
+                        <div class="blow-bar" id="blow-level-bar"></div>
+                    </div>
+                    <p class="blow-tip-text">Breathe in &amp; blow! 💨</p>
+                </div>
+
+                <!-- Step Popup / Blow Button (below cake) -->
+                <div id="cake-popup" class="cake-ceremony-popup glass-card">
+                    <h3 id="popup-title">Make a wish, bacchua! 💖</h3>
+                    <p id="popup-desc">The candles are ready. Ready to blow them out?</p>
+                    <button id="popup-action-btn">Blow your candles, bacchua 🕯️💨</button>
+                    <!-- Fallback Blow Trigger -->
+                    <button id="fallback-blow-btn" class="hidden">Click to Blow out 💨</button>
+                </div>
+
+
+                <!-- Feeding Section (Hidden initially) -->
+                <div id="feeding-container" class="feeding-box hidden">
+                    <h3 class="ceremony-section-title">Feed your loved ones! 🍰❤️</h3>
+                    <p class="ceremony-subtitle">Click on each member to feed them a slice of cake.</p>
+                    
+                    <div class="feeding-avatars-grid">
+                        <div class="avatar-card" id="feed-mummy">
+                            <div class="avatar-circle">👩</div>
+                            <span class="avatar-name">Mummy</span>
+                            <span class="feed-status-badge">Not Fed ❌</span>
+                        </div>
+                        <div class="avatar-card" id="feed-papa">
+                            <div class="avatar-circle">👨</div>
+                            <span class="avatar-name">Papa</span>
+                            <span class="feed-status-badge">Not Fed ❌</span>
+                        </div>
+                        <div class="avatar-card" id="feed-bubu">
+                            <div class="avatar-circle">🦛</div>
+                            <span class="avatar-name">BUBU</span>
+                            <span class="feed-status-badge">Not Fed ❌</span>
+                        </div>
+                    </div>
+
+                    <!-- Flying Cake Slice Element -->
+                    <div id="flying-cake-slice" class="flying-slice hidden">🍰</div>
+
+                    <!-- Self Eating Button (Hidden until all 3 are fed) -->
+                    <div id="self-eat-container" class="self-eat-box hidden">
+                        <button id="self-eat-btn" class="btn-self-eat">
+                            taste the handmade cake by Krish 🍰
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Minimalist Footer -->
+    <footer class="main-footer">
+        <p class="footer-text">Developed by KA7</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
