@@ -30,6 +30,35 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(dismissLoader, 4500);
 
 
+    // === AUDIO SAFETY HELPERS (Prevents older/mobile browser crashes on play promises) ===
+    function safePlay(audio) {
+        if (!audio) return;
+        try {
+            const playPromise = audio.play();
+            if (playPromise !== undefined && typeof playPromise.then === 'function') {
+                playPromise.catch(err => console.log("Audio play failed:", err));
+            }
+        } catch (err) {
+            console.log("Audio play synchronous error:", err);
+        }
+    }
+
+    function safeUnlock(audio) {
+        if (!audio) return;
+        try {
+            const playPromise = audio.play();
+            if (playPromise !== undefined && typeof playPromise.then === 'function') {
+                playPromise.then(() => {
+                    audio.pause();
+                }).catch(err => console.log("Audio unlock failed:", err));
+            } else {
+                audio.pause();
+            }
+        } catch (err) {
+            console.log("Audio unlock synchronous error:", err);
+        }
+    }
+
     // === 2. NAVIGATION & ROUTING ===
     const landingPage = document.getElementById('landing-page');
     const dashboardPage = document.getElementById('dashboard-page');
@@ -54,10 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Play audio directly on user gesture for iOS/Safari compliance
             if (targetId === 'wishes-subpage' && wishesAudio) {
                 wishesAudio.currentTime = 0;
-                wishesAudio.play().catch(err => console.log("Direct wishes play failed:", err));
+                safePlay(wishesAudio);
             } else if (targetId === 'baatein-subpage' && baateinAudio) {
                 baateinAudio.currentTime = 0;
-                baateinAudio.play().catch(err => console.log("Direct baatein play failed:", err));
+                safePlay(baateinAudio);
             }
             
             window.location.hash = targetId;
@@ -89,13 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Pre-activate/Unlock audio elements on iOS/Safari via play/pause cycle
         [wishesAudio, baateinAudio, secretAudio, cakeAudio].forEach(audio => {
-            if (audio) {
-                audio.play().then(() => {
-                    audio.pause();
-                }).catch(err => {
-                    console.log("Audio pre-unlock status:", err);
-                });
-            }
+            safeUnlock(audio);
         });
         
         window.location.hash = 'dashboard';
@@ -230,13 +253,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (hash === 'wishes-subpage') {
                     if (wishesAudio && wishesAudio.paused) {
                         wishesAudio.currentTime = 0;
-                        wishesAudio.play().catch(err => console.log("Wishes audio playback failed:", err));
+                        safePlay(wishesAudio);
                     }
                 }
                 else if (hash === 'baatein-subpage') {
                     if (baateinAudio && baateinAudio.paused) {
                         baateinAudio.currentTime = 0;
-                        baateinAudio.play().catch(err => console.log("Baatein audio playback failed:", err));
+                        safePlay(baateinAudio);
                     }
                 }
                 else if (hash === 'cake-subpage') {
@@ -716,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Play Secret page background song
                 if (secretAudio) {
                     secretAudio.currentTime = 0;
-                    secretAudio.play().catch(err => console.log("Secret audio play failed:", err));
+                    safePlay(secretAudio);
                 }
             }, 400);
         } else {
@@ -878,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cakeAudio) {
             cakeAudio.currentTime = 0;
             cakeAudio.loop = true;
-            cakeAudio.play().catch(err => console.log('Cake audio play failed:', err));
+            safePlay(cakeAudio);
         }
 
         const flames = Array.from(candleFlames);
