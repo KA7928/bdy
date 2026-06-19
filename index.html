@@ -46,16 +46,16 @@
     </button>
 
     <!-- Wishes Special Audio -->
-    <audio id="wishes-audio" src="Arzkiyahaiwebaudio.mpeg" preload="auto"></audio>
+    <audio id="wishes-audio" src="Arzkiyahaiwebaudio.mpeg" preload="none"></audio>
     
     <!-- Memories Secret Audio -->
-    <audio id="secret-audio" src="memoriessecretpagewebaudio.mpeg" preload="auto"></audio>
+    <audio id="secret-audio" src="memoriessecretpagewebaudio.mpeg" preload="none"></audio>
     
     <!-- Birthday Ceremony Audio -->
-    <audio id="cake-audio" src="hbdsoundaudio.mpeg" preload="auto"></audio>
+    <audio id="cake-audio" src="hbdsoundaudio.mpeg" preload="none"></audio>
 
     <!-- Kuch Baatein Audio -->
-    <audio id="baatein-audio" src="CO2songaudio.mpeg" preload="auto"></audio>
+    <audio id="baatein-audio" src="CO2songaudio.mpeg" preload="none"></audio>
 
     <!-- Main Container -->
     <main class="app-container">
@@ -350,10 +350,16 @@
                 <!-- Tab Contents -->
                 <div class="tab-content-container">
                     <div id="pdf1-tab" class="tab-panel active">
-                        <iframe src="BdyStypdf.pdf" class="pdf-viewer-frame"></iframe>
+                        <div class="pdf-action-bar">
+                            <a href="BdyStypdf.pdf" target="_blank" class="btn-open-pdf">Open Book of Us ↗️ (Fullscreen)</a>
+                        </div>
+                        <iframe data-src="BdyStypdf.pdf" src="" class="pdf-viewer-frame"></iframe>
                     </div>
                     <div id="pdf2-tab" class="tab-panel hidden">
-                        <iframe src="sdbdypdfimg.pdf" class="pdf-viewer-frame"></iframe>
+                        <div class="pdf-action-bar">
+                            <a href="sdbdypdfimg.pdf" target="_blank" class="btn-open-pdf">Open Birthday Moments ↗️ (Fullscreen)</a>
+                        </div>
+                        <iframe data-src="sdbdypdfimg.pdf" src="" class="pdf-viewer-frame"></iframe>
                     </div>
                 </div>
             </div>

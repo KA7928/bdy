@@ -1764,3 +1764,41 @@ body.loading {
     border: 1px dashed rgba(255, 141, 161, 0.35);
     line-height: 1.6;
 }
+
+/* PDF Action Bar & Fallback Buttons */
+.pdf-action-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.btn-open-pdf {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid var(--glass-border);
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition-bounce);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.btn-open-pdf:hover {
+    transform: scale(1.03) translateY(-1px);
+    background: white;
+    color: var(--color-primary);
+    box-shadow: var(--glass-shadow-hover);
+}
+
+.btn-open-pdf:active {
+    transform: scale(0.98);
+}
+

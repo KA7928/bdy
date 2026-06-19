@@ -9,7 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add loading class to body to disable scroll during load
     document.body.classList.add('loading');
     
-    window.addEventListener('load', () => {
+    let loaderDismissed = false;
+    function dismissLoader() {
+        if (loaderDismissed) return;
+        loaderDismissed = true;
+        
         setTimeout(() => {
             loader.classList.add('fade-out');
             document.body.classList.remove('loading');
@@ -19,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 loader.style.display = 'none';
             }, 800);
         }, 1200); // Small delay for visual aesthetic
-    });
+    }
+
+    window.addEventListener('load', dismissLoader);
+    // Safety fallback: dismiss loader after 4.5 seconds maximum
+    setTimeout(dismissLoader, 4500);
 
 
     // === 2. NAVIGATION & ROUTING ===
@@ -42,6 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => {
         card.addEventListener('click', () => {
             const targetId = card.getAttribute('data-target');
+            
+            // Play audio directly on user gesture for iOS/Safari compliance
+            if (targetId === 'wishes-subpage' && wishesAudio) {
+                wishesAudio.currentTime = 0;
+                wishesAudio.play().catch(err => console.log("Direct wishes play failed:", err));
+            } else if (targetId === 'baatein-subpage' && baateinAudio) {
+                baateinAudio.currentTime = 0;
+                baateinAudio.play().catch(err => console.log("Direct baatein play failed:", err));
+            }
+            
             window.location.hash = targetId;
         });
     });
@@ -68,6 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
     enterBtn.addEventListener('click', () => {
         // Heartburst effect on click
         createHeartBurst(window.innerWidth / 2, window.innerHeight / 2, 40);
+        
+        // Pre-activate/Unlock audio elements on iOS/Safari via play/pause cycle
+        [wishesAudio, baateinAudio, secretAudio, cakeAudio].forEach(audio => {
+            if (audio) {
+                audio.play().then(() => {
+                    audio.pause();
+                }).catch(err => {
+                    console.log("Audio pre-unlock status:", err);
+                });
+            }
+        });
+        
         window.location.hash = 'dashboard';
     });
 
@@ -138,6 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 unlockedContent.classList.add('hidden');
                                 if (lockErrorMsg) lockErrorMsg.classList.add('hidden');
                                 if (passcodeInput) passcodeInput.value = '';
+                                
+                                // Unload PDFs to free memory resources
+                                unlockedContent.querySelectorAll('iframe').forEach(iframe => {
+                                    iframe.removeAttribute('src');
+                                });
                             }
                         }, 500);
                     }
@@ -193,13 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Page-specific activation logic
                 if (hash === 'wishes-subpage') {
-                    if (wishesAudio) {
+                    if (wishesAudio && wishesAudio.paused) {
                         wishesAudio.currentTime = 0;
                         wishesAudio.play().catch(err => console.log("Wishes audio playback failed:", err));
                     }
                 }
                 else if (hash === 'baatein-subpage') {
-                    if (baateinAudio) {
+                    if (baateinAudio && baateinAudio.paused) {
                         baateinAudio.currentTime = 0;
                         baateinAudio.play().catch(err => console.log("Baatein audio playback failed:", err));
                     }
@@ -641,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function attemptUnlock() {
         if (!passcodeInput || !lockScreen || !unlockedContent) return;
 
-        const enteredCode = passcodeInput.value.trim();
+        const enteredCode = passcodeInput.value.trim().toUpperCase();
         if (enteredCode === CORRECT_PASSCODE) {
             // Clear error
             if (lockErrorMsg) lockErrorMsg.classList.add('hidden');
@@ -657,6 +692,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 unlockedContent.style.opacity = '0';
                 void unlockedContent.offsetWidth; // Force Reflow
                 unlockedContent.style.opacity = '1';
+
+                // Load active tab's PDF dynamically
+                const activePanel = unlockedContent.querySelector('.tab-panel.active');
+                if (activePanel) {
+                    const iframe = activePanel.querySelector('iframe');
+                    if (iframe && !iframe.src) {
+                        iframe.src = iframe.getAttribute('data-src');
+                    }
+                }
 
                 // Pause background music if playing
                 if (isSynthPlaying) {
@@ -703,6 +747,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (panel.id === targetTabId) {
                     panel.classList.remove('hidden');
                     panel.classList.add('active');
+                    
+                    // Lazy-load PDF on tab switch
+                    const iframe = panel.querySelector('iframe');
+                    if (iframe && !iframe.src) {
+                        iframe.src = iframe.getAttribute('data-src');
+                    }
                 } else {
                     panel.classList.add('hidden');
                     panel.classList.remove('active');
